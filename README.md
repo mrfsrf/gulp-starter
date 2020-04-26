@@ -7,9 +7,9 @@
 
 **To do**
 
-- [] add `node scripts` for gulp
-- [] add more features and refactoring
-- [] do some tests
+- [ ] add `node scripts` for gulp
+- [ ] add more features and refactoring
+- [ ] do some tests
 
 --
 
