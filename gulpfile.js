@@ -1,11 +1,16 @@
 'use strict';
 
 const gulp = require('gulp'),
-      sass = require('gulp-sass'),
-      browserSync = require('browser-sync').create(),
-      autoprefixer = require('gulp-autoprefixer'),
-      imagemin = require('gulp-imagemin'),
-      pngquant = require('imagemin-pngquant'),
+  sass = require('gulp-sass'),
+  browserSync = require('browser-sync').create(),
+  autoprefixer = require('gulp-autoprefixer'),
+  cleanCSS = require('gulp-clean-css'),
+  sourcemaps = require('gulp-sourcemaps'),
+  concat = require('gulp-concat'),
+  imagemin = require('gulp-imagemin'),
+  pngquant = require('imagemin-pngquant'),
+  changed = require('gulp-changed'),
+  uglify = require('gulp-uglify');
 
  
 function style() {
