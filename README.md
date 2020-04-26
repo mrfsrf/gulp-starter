@@ -1,1 +1,1 @@
-# gulp-starter
+# gulp starter project
