@@ -9,6 +9,7 @@ const gulp = require('gulp'),
   concat = require('gulp-concat'),
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
+  hasher = require('gulp-hasher'),
   changed = require('gulp-changed'),
   uglify = require('gulp-uglify');
 
@@ -37,7 +38,25 @@ function js() {
   .pipe(gulp.dest(`${out_js}`))
   .pipe(browserSync.stream());
 }
- 
+
+function images {
+  return gulp.src(`${src_images}/**/*`)
+    .pipe(imagemin([   // Basic: .pipe(imagemin())
+      pngquant({
+        speed: 1,
+        quality: [0.95, 1] //lossy settings
+      }),
+      imagemin.svgo({
+        plugins: [
+          {removeViewBox: false},
+          {cleanupIDs: false}
+        ]
+      })
+      ]))
+    .pipe(gulp.dest(out_images))
+    .pipe(hasher());     // We have output assets, hash and cache them
+};
+
 function watch() {
   browserSync.init({
     server: {
@@ -50,7 +69,10 @@ function watch() {
   gulp.watch(`${src_js}/*.js`, js).on('change', browserSync.reload);
   gulp.watch('./*.html').on('change', browserSync.reload);
 }
+
+
  
 exports.style = style;
 exports.js = js;
+exports.images = images;
 exports.watch = watch;
