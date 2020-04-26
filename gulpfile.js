@@ -39,23 +39,23 @@ function js() {
   .pipe(browserSync.stream());
 }
 
-function images {
+function images() {
   return gulp.src(`${src_images}/**/*`)
     .pipe(imagemin([   // Basic: .pipe(imagemin())
       pngquant({
         speed: 1,
         quality: [0.95, 1] //lossy settings
       }),
-      imagemin.svgo({
+      imagemin.svgo({ // SVG optimization
         plugins: [
           {removeViewBox: false},
           {cleanupIDs: false}
         ]
       })
       ]))
-    .pipe(gulp.dest(out_images))
-    .pipe(hasher());     // We have output assets, hash and cache them
-};
+    .pipe(gulp.dest(`${out_images}`))
+    .pipe(hasher());    // hash and cache them
+}
 
 function watch() {
   browserSync.init({
@@ -65,7 +65,9 @@ function watch() {
     port: 8080
   });
  
-  gulp.watch(`${src_sass}/**/*.scss`, style).on('change', browserSync.reload);
+ // Todo
+ // gulp.watch(`${src_sass}/**/*.scss`, style).on('change', browserSync.reload);
+  gulp.watch(`${src_images}/**/*`, images).on('change', browserSync.reload);
   gulp.watch(`${src_js}/*.js`, js).on('change', browserSync.reload);
   gulp.watch('./*.html').on('change', browserSync.reload);
 }
